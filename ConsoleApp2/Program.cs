@@ -1,5 +1,5 @@
 ﻿
-//Task1
+/*Task1
 class Program
 {
     static void Main(string[] args)
@@ -120,4 +120,4 @@ class Pro
 
        
     }
-}
+}*/
