@@ -1,4 +1,4 @@
-﻿//Task1
+﻿/*//Task1
 using System.Text.RegularExpressions;
 
 class substr
@@ -334,3 +334,4 @@ class Program
         return Regex.Replace(input, pattern, "");
     }
 }
+*/

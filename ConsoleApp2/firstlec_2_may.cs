@@ -1,4 +1,4 @@
-﻿//Task1
+﻿/*//Task1
 
 class Progra
 {
@@ -169,3 +169,4 @@ class Pr
         Console.WriteLine("Day: " + dayString);
     }
 }
+*/
