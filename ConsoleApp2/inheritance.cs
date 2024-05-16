@@ -1,4 +1,4 @@
-﻿//Task1
+﻿/*//Task1
 
 class Animal
 {
@@ -28,7 +28,7 @@ class last
 }
 
 //Task2
-
+    
 
 class Animal
 {
@@ -134,7 +134,7 @@ class C : A, IB
     {
         Console.WriteLine("Method B");
     }
-
+        
     public void MethodC()
     {
         Console.WriteLine("Method C");
@@ -237,3 +237,4 @@ class Program
     }
 }
 
+*/
