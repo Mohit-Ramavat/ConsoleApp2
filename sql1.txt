@@ -1,0 +1,44 @@
+-- Insert data into the Employees table
+--Insert INTO Employees (EmployeeId, FirstName, LastName, Age, Department, Salary, HiredDate) VALUES
+--(5, 'Rohan', 'Mehra', 41, 'IT', 80000, '2023-05-22'),
+--(6, 'Emily', 'Dodge', 32, 'Marketing', 70000, '2023-07-14'),
+--(7, 'Sarah', 'B', 45, 'Marketing', 40000, '2023-08-21');
+--(8,'bertold','vv',32,'IT',30000,'2001-09-04');
+--(9,'mike','cc',21,'HR',90000,'2002-09-07');
+
+
+
+--SELECT * FROM Employees WHERE Department='IT';
+
+
+--SELECT *
+--FROM Employees
+--WHERE Age > 40;
+
+
+	--SELECT * FROM Employees WHERE HiredDate<'2015-01-01';
+
+--select *from Employees where Salary>=70000;
+
+
+--select * from Employees where Department='HR' and Salary>80000;
+
+--select * from Employees where Department= 'Marketing' or Salary<60000
+
+--select * from Employees where Firstname='Sarah';
+
+--select * from Employees where Firstname='Emily';
+
+--SELECT *FROM Employees WHERE FirstName IN ('Sarah', 'Emily');
+
+--select * from Employees where Age<35 and Salary>80000
+
+--select * from Employees where year(HiredDate) ='2020';
+
+--select * from Employees where LastName LIKE'D%';
+
+
+
+
+
+
