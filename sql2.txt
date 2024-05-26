@@ -1,0 +1,65 @@
+
+--INSERT INTO Market (SalesId, ProductId, ProductName, Quantity, PriceSale, Salesdate, Region) VALUES
+    --(1, 101, 'Laptop', 5, 1200.00, '2023-01-15', 'North'),
+    --(2, 102, 'Tablet', 10, 300.00, '2023-02-20', 'South'),
+    --(3, 103, 'Smartphone', 20, 800.00, '2023-03-25', 'East'),
+   -- (4, 104, 'Smartwatch', 15, 250.00, '2023-04-10', 'West');
+
+--SELECT SUM(Quantity)
+--FROM Market;
+
+--SELECT SUM(Quantity*Pricesale)
+--FROM Market;
+
+--SELECT COUNT(Region)
+--FROM Market;
+
+--SELECT AVG(PriceSale)
+--FROM Market
+
+--SELECT SUM(Quantity)
+--FROM Market;
+
+--Select MAX (PriceSale) from Market;
+--select min (PriceSale) from Market;
+
+--SELECT YEAR(Salesdate) AS Year,
+   --    MONTH(Salesdate) AS Month,
+   --    SUM(Quantity * PriceSale) AS TotalSalesAmount
+--FROM Market
+--GROUP BY YEAR(Salesdate), MONTH(Salesdate);
+
+--select Region,
+ --   SUM(Quantity) AS Totalquantity,
+  --  AVG(Pricesale) AS totalavgprice
+
+--from Market
+--group by Region;
+
+--select Region,
+  -- SUM(Quantity* Pricesale) AS totalsalesamt
+   --from Market
+   --group by Region;
+
+  -- SELECT ProductName,
+   --    Region,
+   --    SUM(Quantity * PriceSale) AS TotalSalesAmount
+--FROM Market
+--GROUP BY ProductName, Region;
+
+--SELECT YEAR(SalesDate) AS Year,
+  --     MONTH(SalesDate) AS Month,
+      -- ProductName,
+      -- COUNT(ProductName) AS NumberOfTransactions,
+     --  SUM(Quantity) AS TotalQuantitySold
+--FROM Market
+--GROUP BY YEAR(SalesDate), MONTH(SalesDate), ProductName;
+
+
+
+
+
+
+
+
+
