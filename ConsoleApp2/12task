@@ -1,0 +1,283 @@
+--query1
+/*create table Employees(
+Employee_ID int,
+First_name varchar(50),
+Last_name varchar(50),
+Department varchar(50),
+Salary DECIMAL(10,2));
+
+insert into Employees(First_name,Last_name,Department,Salary) values
+
+('John', 'Doe', 'IT', 60000.00),
+('Jane', 'Smith', 'HR', 55000.00),
+('Mike', 'Johnson', 'Finance', 70000.00),
+('Emily', 'Davis', 'IT', 65000.00);
+
+create procedure insertemployees(
+@First_name varchar(100),
+@Last_name varchar(100),
+@Department varchar(100),
+@Salary decimal(10,2))
+
+AS
+BEGIN
+
+insert into Employees(First_name,Last_name,Department,Salary)
+values (@First_name,@Last_name,@Department,@Salary);
+End;
+
+CREATE PROCEDURE UPDATEEmployees
+@Employee_ID int,
+@First_name varchar(100),
+@Last_name varchar(100),
+@Department varchar(100),
+@Salary decimal(10,2)
+
+AS
+BEGIN
+UPDATE Employees
+set First_name=@First_name,
+Last_name=@Last_name,
+Department=@Department,
+Salary=@Salary
+
+WHERE Employee_ID=@Employee_ID;
+END;
+CREATE PROCEDURE GetEmployees
+    @DepartmentFilter VARCHAR(50) = NULL,
+    @SalaryFilter DECIMAL(10, 2) = NULL
+AS
+BEGIN
+    IF @DepartmentFilter IS NOT NULL AND @SalaryFilter IS NOT NULL
+    BEGIN
+        SELECT * FROM Employees
+        WHERE Department = @DepartmentFilter
+        AND Salary >= @SalaryFilter;
+    END
+    ELSE IF @DepartmentFilter IS NOT NULL
+    BEGIN
+        SELECT * FROM Employees
+        WHERE Department = @DepartmentFilter;
+    END
+    ELSE IF @SalaryFilter IS NOT NULL
+    BEGIN
+        SELECT * FROM Employees
+        WHERE Salary >= @SalaryFilter;
+    END
+    ELSE
+    BEGIN
+        SELECT * FROM Employees;
+    END;
+END;
+
+--query2
+CREATE TABLE Products
+(
+    ProductID INT PRIMARY KEY,
+    ProductName VARCHAR(100),
+    Category VARCHAR(50),
+    Price NUMERIC(18, 2)
+);
+
+-- Insert sample data
+INSERT INTO Products (ProductName, Category, Price)
+VALUES
+('Laptop', 'Electronics', 1200.00),
+('T-Shirt', 'Clothing', 25.00),
+('Novel', 'Books', 15.00),
+('Mug', 'Others', 8.00);
+
+CREATE FUNCTION CalculateDiscount
+(
+    @Category VARCHAR(50),
+    @Price NUMERIC(18, 2)
+)
+RETURNS NUMERIC(18, 2)
+AS
+BEGIN
+    DECLARE @DiscountRate NUMERIC(5, 2)
+
+    -- Determine the discount rate based on the product category
+    IF @Category = 'Electronics'
+        SET @DiscountRate = 0.10
+    ELSE IF @Category = 'Clothing'
+        SET @DiscountRate = 0.15
+    ELSE IF @Category = 'Books'
+        SET @DiscountRate = 0.05
+    ELSE
+        SET @DiscountRate = 0.02
+
+    -- Calculate the discount amount
+    RETURN @Price * @DiscountRate
+END;
+SELECT 
+    ProductName,
+    Category,
+    Price,
+    dbo.CalculateDiscount(Category, Price) AS DiscountAmount
+FROM 
+    Products;
+
+
+
+
+	--query3
+
+	    BEGIN TRY
+        BEGIN TRANSACTION; -- Start the transaction
+
+        -- Existing code for SELECT statements goes here
+
+        COMMIT TRANSACTION; -- Commit the transaction if successful
+    END TRY
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0
+        BEGIN
+            ROLLBACK TRANSACTION; -- Rollback the transaction if an error occurs
+        END;
+
+        -- Handle the error, you can raise an error message, log the error, or perform any necessary actions
+        DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
+        DECLARE @ErrorSeverity INT = ERROR_SEVERITY();
+        DECLARE @ErrorState INT = ERROR_STATE();
+
+        RAISEERROR(@ErrorMessage, @ErrorSeverity, @ErrorState);
+    END CATCH;
+
+--query4
+WITH EmployeeHierarchy AS (
+    -- Anchor Member
+    SELECT 
+        Employee_ID,
+        First_name + ' ' + Last_name AS EmployeeName,
+        Manager_ID,
+        0 AS Level
+    FROM 
+        Employees
+    WHERE 
+        Manager_ID IS NULL  -- Assuming NULL Manager_ID represents top-level employees (no manager)
+
+    UNION ALL
+
+    -- Recursive Member
+    SELECT 
+        e.Employee_ID,
+        e.First_name + ' ' + e.Last_name AS EmployeeName,
+        e.Manager_ID,
+        eh.Level + 1 AS Level
+    FROM 
+        Employees e
+    INNER JOIN 
+        EmployeeHierarchy eh ON e.Manager_ID = eh.Employee_ID
+)
+
+-- Final SELECT from CTE
+SELECT 
+    Employee_ID,
+    EmployeeName,
+    Manager_ID,
+    Level
+FROM 
+    EmployeeHierarchy;*/
+
+	--query5
+
+/*CREATE TABLE employees (
+  id INT  PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  department VARCHAR(255) NOT NULL,
+  salary DECIMAL(10, 2) NOT NULL,
+  hire_date DATE
+);
+
+
+
+CREATE TRIGGER trg_instead_of_insert_employees
+ON employees
+INSTEAD OF INSERT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+   
+    SELECT 
+        name,
+        department,
+        salary,
+        COALESCE(hire_date, GETDATE())  -- Set to current date if hire_date is NULL
+    FROM inserted;
+END;
+
+--query6
+
+CREATE TABLE employees (
+    id INT PRIMARY KEY,
+    name NVARCHAR(100),
+    department NVARCHAR(100),
+    salary DECIMAL(10, 2)
+);
+
+CREATE CLUSTERED INDEX idx_clustered_id ON employees(id);
+
+CREATE NONCLUSTERED INDEX idx_nonclustered_department ON employees(department);
+
+INSERT INTO employees (id, name, department, salary)
+VALUES 
+    (1, 'John Doe', 'Engineering', 60000),
+    (2, 'Jane Smith', 'Marketing', 70000),
+    (3, 'Alice Johnson', 'Engineering', 55000),
+    (4, 'Bob Brown', 'Sales', 65000);
+	
+
+	
+CREATE CLUSTERED INDEX idx_clustered_id ON employees(id);
+
+CREATE NONCLUSTERED INDEX idx_nonclustered_department ON employees(department);
+SELECT * FROM employees WHERE department = 'Engineering';*/
+
+/*--query 7
+CREATE TABLE student (
+    student_id INT,
+    name NVARCHAR(100),
+    score INT
+);
+
+
+INSERT INTO student(student_id, name, score)
+VALUES 
+    (1, 'John', 85),
+    (2, 'Jane', 92),
+    (3, 'Alice', 78),
+    (4, 'Bob', 85),
+    (5, 'Mary', 90);
+
+	SELECT 
+    student_id,
+    name,
+    score,
+    ROW_NUMBER() OVER (ORDER BY score DESC) AS row_num
+FROM student;
+
+SELECT 
+    student_id,
+    name,
+    score,
+    RANK() OVER (ORDER BY score DESC) AS rank_num
+FROM student;
+
+SELECT 
+    student_id,
+    name,
+    score,
+    DENSE_RANK() OVER (ORDER BY score DESC) AS dense_rank_num
+FROM student;*/
+
+
+
+
+
+
+
+
+
+
